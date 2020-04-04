@@ -1,0 +1,6 @@
+version: "2"
+services:
+  api:
+    image: myproject/prometheus-export
+    ports:
+        - "5000:5000"
