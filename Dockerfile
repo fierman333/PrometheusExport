@@ -1,4 +1,4 @@
-FROM python:3.8-alpine
+FROM python:3.8
 
 ARG VERSION
 ARG BUILD_DATE
@@ -20,6 +20,6 @@ COPY app.py /
 
 USER 1000
  
-ENTRYPOINT ["python"]
+ENTRYPOINT ["uwsgi"]
  
-CMD ["/app.py"]
+CMD ["--http", "0.0.0.0:8000", "--wsgi-file", "app.py", "--callable", "app_dispatch"]

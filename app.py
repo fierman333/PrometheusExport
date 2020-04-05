@@ -4,7 +4,8 @@ import logging
 from os import environ
 from prometheus_client.core import GaugeMetricFamily, HistogramMetricFamily, REGISTRY
 from prometheus_client import make_wsgi_app
-from wsgiref.simple_server import make_server
+from flask import Flask
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 listen_addr="0.0.0.0"
 listen_port=8000
@@ -79,10 +80,21 @@ class CustomCollector(object):
 
           logging.info("GET: %s", url)
 
-if __name__ == '__main__':
-    logging.info("Listening on address: %s, Port: %d", listen_addr, listen_port)
-    initalize()
-    REGISTRY.register(CustomCollector())
-    app = make_wsgi_app()
-    httpd = make_server(listen_addr, listen_port, app)
-    httpd.serve_forever()
+# initialize user arrays
+initalize()
+
+# register custom collectors
+REGISTRY.register(CustomCollector())
+
+# initalize flask app
+app = Flask(__name__)
+
+# Add prometheus wsgi middleware to route /metrics requests
+app_dispatch = DispatcherMiddleware(app, {
+    '/metrics': make_wsgi_app()
+})
+
+# Default path should return '200' http status
+@app.route('/')
+def main():
+    return "OK"
