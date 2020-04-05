@@ -1,0 +1,19 @@
+{{- if .Values.podSecurityPolicy.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ template "prometheus-export.fullname" . }}
+  labels:
+    app: {{ template "prometheus-export.name" . }}
+    chart: {{ template "prometheus-export.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+roleRef:
+  kind: Role
+  name: {{ template "prometheus-export.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: {{ template "prometheus-export.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+{{- end }}

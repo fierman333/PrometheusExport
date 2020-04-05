@@ -1,0 +1,17 @@
+{{- if .Values.podSecurityPolicy.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ template "prometheus-export.fullname" . }}
+  labels:
+    app: {{ template "prometheus-export.name" . }}
+    chart: {{ template "prometheus-export.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+rules:
+- apiGroups: ['extensions']
+  resources: ['podsecuritypolicies']
+  verbs:     ['use']
+  resourceNames:
+  - {{ template "prometheus-export.fullname" . }}
+{{- end }}

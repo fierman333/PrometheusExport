@@ -16,3 +16,6 @@ server:
     enabled: true
     hosts:
     - prometheus.demoproject.info
+  securityContext:
+    runAsUser: 0
+    runAsNonRoot: false

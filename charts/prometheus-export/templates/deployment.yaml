@@ -20,10 +20,6 @@ spec:
         prometheus.io/port: '8000'
         prometheus.io/scrape: 'true'
     spec:
-    {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
       serviceAccountName: {{ template "prometheus-export.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}

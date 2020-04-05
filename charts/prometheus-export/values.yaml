@@ -68,5 +68,5 @@ tolerations: []
 
 affinity: {}
 
-imagePullSecrets:
-  - name: awsecr-cred
+podSecurityPolicy:
+  enabled: true
