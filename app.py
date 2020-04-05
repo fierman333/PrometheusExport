@@ -2,7 +2,6 @@ import time
 import requests
 import logging
 from os import environ
-from flask import Flask
 from prometheus_client.core import GaugeMetricFamily, HistogramMetricFamily, REGISTRY
 from prometheus_client import make_wsgi_app
 from wsgiref.simple_server import make_server

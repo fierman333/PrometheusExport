@@ -15,6 +15,10 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "prometheus-export.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
+      annotations:
+        prometheus.io/path: '/'
+        prometheus.io/port: '8000'
+        prometheus.io/scrape: 'true'
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
