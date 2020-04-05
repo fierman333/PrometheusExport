@@ -1,10 +1,24 @@
-From python:3.7
+FROM python:3.8-alpine
+
+ARG VERSION
+ARG BUILD_DATE
+
+LABEL org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.version=$VERSION \
+      org.label-schema.name="PrometheusExport" \
+      org.label-schema.description="Prometheus HTTP(S) check metrics exporter"
+
+RUN echo $VERSION > image_version
+RUN echo $BUILD_DATE > build_date
+
+ENV HTTP_URIS="https://httpstat.us/200 https://httpstat.us/503"
  
-RUN apt-get update && apt-get install -y python3-tk
 COPY ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
  
-COPY . /
+COPY app.py /
+
+USER 1000
  
 ENTRYPOINT ["python"]
  

@@ -1,20 +1,25 @@
 import time
 import requests
 import logging
+from os import environ
 from requests.exceptions import HTTPError
 from prometheus_client.core import GaugeMetricFamily, REGISTRY, CounterMetricFamily, HistogramMetricFamily
 from prometheus_client import start_http_server
 
 listen_addr="0.0.0.0"
 listen_port=8000
-urls=["https://httpstat.us/200", "https://httpstat.us/503"]
 req_type="GET"
 req_timeout=5
 sum_response_time={}
 count_requests={}
 count_bucket={}
-buckets=['10', '100', '+Inf']
+buckets=['1', '10', '100', '+Inf']
 response_statuses=[0,1]
+
+if "HTTP_URIS" in environ:
+  urls = environ.get("HTTP_URIS").split()
+else:
+  urls=["https://httpstat.us/200", "https://httpstat.us/503"]
 
 FORMAT = "%(asctime)s %(levelname)-8s %(message)s"
 logging.basicConfig(format=FORMAT,level=logging.INFO)
@@ -43,7 +48,7 @@ class CustomCollector(object):
             success_status = 0
           status_code_str = str(status_code)
 
-          sum_response_time[url][success_status] += response_time 
+          sum_response_time[url][success_status] += response_time
           sum_response_time_ms = sum_response_time[url][success_status]
           
           count_requests[url][success_status] += 1
@@ -62,7 +67,14 @@ class CustomCollector(object):
           yield c
 
           d = HistogramMetricFamily("sample_external_url_response_ms_buckets", 'Sample external URL response bucket in ms', labels=['url','code','method'])
-          d.add_metric([url, status_code_str, req_type], buckets=[(buckets[0], count_bucket[url][success_status][0]), (buckets[1], count_bucket[url][success_status][1]), (buckets[2], total_count)], sum_value=sum_response_time_ms)
+          d.add_metric(
+            [url, status_code_str, req_type],
+            buckets=[(buckets[0], count_bucket[url][success_status][0]),
+            (buckets[1], count_bucket[url][success_status][1]),
+            (buckets[2], count_bucket[url][success_status][2]),
+            (buckets[3], total_count)],
+            sum_value=sum_response_time_ms
+          )
           yield d
 
           logging.info("GET: %s", url)
