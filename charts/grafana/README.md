@@ -1,4 +1,4 @@
-# Deploy Prometheus
+# Deploy Grafana
 ```
 helm upgrade grafana --install --namespace monitoring stable/grafana -f values.yaml
 ```

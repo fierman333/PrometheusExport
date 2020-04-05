@@ -53,7 +53,20 @@ export AWS_PROFILE=demoproject-developer
 make docker_push
 ```
 
-## Run in docker-compose
+## Run app service locally
 ```
-docker-compose up -d
+uwsgi --http 127.0.0.1:8000 --wsgi-file app.py --callable app_dispatch
 ```
+
+## Run all services in minikube
+### Install 'registry-creds' service to allow minikube AWS ECR repository login
+https://github.com/fierman333/PrometheusExport/blob/master/charts/registry-creds/README.md
+
+### Install 'prometheus-export' app service
+https://github.com/fierman333/PrometheusExport/blob/master/charts/prometheus-export/README.md
+
+### Install 'prometheus' metrics server
+https://github.com/fierman333/PrometheusExport/blob/master/charts/prometheus/README.md
+
+### Install 'grafana' monitoring server
+https://github.com/fierman333/PrometheusExport/blob/master/charts/grafana/README.md
