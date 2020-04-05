@@ -56,7 +56,7 @@ class CustomCollector(object):
           total_count = count_requests[url][success_status]
 
           for key in range(len(buckets)-1):
-            if sum_response_time_ms <= int(buckets[key]):
+            if response_time <= int(buckets[key]):
               count_bucket[url][success_status][key] += 1
  
           g = GaugeMetricFamily("sample_external_url_up", 'Sample external URL up status', labels=['url','code','method'])
@@ -67,7 +67,7 @@ class CustomCollector(object):
           c.add_metric([url, status_code_str, req_type], response_time)
           yield c
 
-          d = HistogramMetricFamily("sample_external_url_response_ms_buckets", 'Sample external URL response bucket in ms', labels=['url','code','method'])
+          d = HistogramMetricFamily("sample_external_url_response_ms", 'Sample external URL response bucket in ms', labels=['url','code','method'])
           d.add_metric(
             [url, status_code_str, req_type],
             buckets=[(buckets[0], count_bucket[url][success_status][0]),

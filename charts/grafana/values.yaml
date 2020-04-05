@@ -240,7 +240,7 @@ dashboards:
               "steppedLine": false,
               "targets": [
                 {
-                  "expr": "sum(irate(sample_external_url_response_ms[5m])) by (method,path,url) / sum(irate(sample_external_url_response_ms_buckets_count[5m])) by (method,path,url)",
+                  "expr": "sum(irate(sample_external_url_response_ms[5m])) by (method,path,url) / sum(irate(sample_external_url_response_ms_count[5m])) by (method,path,url)",
                   "interval": "",
                   "legendFormat": "{{method}} - {{url}}",
                   "refId": "A"
@@ -336,19 +336,19 @@ dashboards:
               "steppedLine": false,
               "targets": [
                 {
-                  "expr": "( sum(irate(sample_external_url_response_ms_buckets_bucket{le=\"1\"}[5m])) /  sum(irate(sample_external_url_response_ms_buckets_count[5m])) ) * 100",
+                  "expr": "( sum(irate(sample_external_url_response_ms_bucket{le=\"1\"}[5m])) /  sum(irate(sample_external_url_response_ms_count[5m])) ) * 100",
                   "interval": "",
                   "legendFormat": "Duration < 1ms (%)",
                   "refId": "A"
                 },
                 {
-                  "expr": "( sum(irate(sample_external_url_response_ms_buckets_bucket{le=\"10\"}[5m])) /  sum(irate(sample_external_url_response_ms_buckets_count[5m])) ) * 100",
+                  "expr": "( sum(irate(sample_external_url_response_ms_bucket{le=\"10\"}[5m])) /  sum(irate(sample_external_url_response_ms_count[5m])) ) * 100",
                   "interval": "",
                   "legendFormat": "Duration < 10ms (%)",
                   "refId": "B"
                 },
                 {
-                  "expr": "( sum(irate(sample_external_url_response_ms_buckets_bucket{le=\"100\"}[5m])) /  sum(irate(sample_external_url_response_ms_buckets_count[5m])) ) * 100",
+                  "expr": "( sum(irate(sample_external_url_response_ms_bucket{le=\"100\"}[5m])) /  sum(irate(sample_external_url_response_ms_count[5m])) ) * 100",
                   "interval": "",
                   "legendFormat": "Duration < 100ms (%)",
                   "refId": "C"
