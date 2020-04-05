@@ -2,9 +2,10 @@ import time
 import requests
 import logging
 from os import environ
-from requests.exceptions import HTTPError
-from prometheus_client.core import GaugeMetricFamily, REGISTRY, CounterMetricFamily, HistogramMetricFamily
-from prometheus_client import start_http_server
+from flask import Flask
+from prometheus_client.core import GaugeMetricFamily, HistogramMetricFamily, REGISTRY
+from prometheus_client import make_wsgi_app
+from wsgiref.simple_server import make_server
 
 listen_addr="0.0.0.0"
 listen_port=8000
@@ -78,10 +79,11 @@ class CustomCollector(object):
           yield d
 
           logging.info("GET: %s", url)
+
 if __name__ == '__main__':
-    start_http_server(listen_port)
     logging.info("Listening on address: %s, Port: %d", listen_addr, listen_port)
     initalize()
     REGISTRY.register(CustomCollector())
-    while True:
-        time.sleep(5)
+    app = make_wsgi_app()
+    httpd = make_server(listen_addr, listen_port, app)
+    httpd.serve_forever()

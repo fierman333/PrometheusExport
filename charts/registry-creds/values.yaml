@@ -1,0 +1,6 @@
+ecr:
+  enabled: true
+  awsAccessKeyId: "AKIAUGDC2OVYGV5A7GLE"
+  awsSecretAccessKey: "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"
+  awsAccount: "287970063728"
+  awsRegion: "us-east-1"
