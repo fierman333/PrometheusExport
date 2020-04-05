@@ -1,6 +1,6 @@
 default: docker_build
 
-DOCKER_IMAGE ?= 287970063728.dkr.ecr.us-east-1.amazonaws.com/demoproject/prometheus-export
+DOCKER_IMAGE ?= fierman333/prometheus-export
 GIT_BRANCH ?= $(shell git rev-parse --abbrev-ref HEAD)
 GIT_VERSION ?= $(shell git rev-parse --short HEAD)
 

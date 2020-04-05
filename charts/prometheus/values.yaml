@@ -7,6 +7,9 @@ nodeExporter:
 pushgateway:
   enabled: false
 server:
+  global:
+    scrape_interval: 30s
+    scrape_timeout: 10s
   service:
     type: NodePort
   ingress:

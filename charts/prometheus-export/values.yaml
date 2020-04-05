@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: 287970063728.dkr.ecr.us-east-1.amazonaws.com/demoproject/prometheus-export
+  repository: fierman333/prometheus-export
   tag: latest
   pullPolicy: IfNotPresent
 
