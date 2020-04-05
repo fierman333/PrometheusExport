@@ -1,0 +1,15 @@
+alertmanager:
+  enabled: false
+kubeStateMetrics:
+  enabled: false
+nodeExporter:
+  enabled: false
+pushgateway:
+  enabled: false
+server:
+  service:
+    type: NodePort
+  ingress:
+    enabled: true
+    hosts:
+    - prometheus.demoproject.info

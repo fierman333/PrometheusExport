@@ -35,3 +35,8 @@ make docker_build
 ```
 make docker_push
 ```
+
+## Run in docker-compose
+```
+docker-compose up -d
+```
