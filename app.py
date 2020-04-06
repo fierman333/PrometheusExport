@@ -7,15 +7,13 @@ from prometheus_client import make_wsgi_app
 from flask import Flask
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
-listen_addr="0.0.0.0"
-listen_port=8000
-req_type="GET"
-req_timeout=5
 sum_response_time={}
 count_requests={}
 count_bucket={}
 buckets=['1', '10', '100', '+Inf']
 response_statuses=[0,1]
+req_type="GET"
+req_timeout=5
 
 if "HTTP_URIS" in environ:
   urls = environ.get("HTTP_URIS").split()
@@ -70,10 +68,12 @@ class CustomCollector(object):
           d = HistogramMetricFamily("sample_external_url_response_ms", 'Sample external URL response bucket in ms', labels=['url','code','method'])
           d.add_metric(
             [url, status_code_str, req_type],
-            buckets=[(buckets[0], count_bucket[url][success_status][0]),
-            (buckets[1], count_bucket[url][success_status][1]),
-            (buckets[2], count_bucket[url][success_status][2]),
-            (buckets[3], total_count)],
+            buckets=[
+              (buckets[0], count_bucket[url][success_status][0]),
+              (buckets[1], count_bucket[url][success_status][1]),
+              (buckets[2], count_bucket[url][success_status][2]),
+              (buckets[3], total_count)
+            ],
             sum_value=sum_response_time_ms
           )
           yield d
