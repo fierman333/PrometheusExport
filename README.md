@@ -48,3 +48,19 @@ https://github.com/fierman333/PrometheusExport/blob/master/charts/prometheus/REA
 
 ### Install 'grafana' monitoring server
 https://github.com/fierman333/PrometheusExport/blob/master/charts/grafana/README.md
+
+## Screenshots
+### Prometheus server
+
+![prometheus all metrics](/screenshots/prometheus/prometheus_all_metrics.png?raw=true "Prometheus all metrics")
+![prometheus url up](/screenshots/prometheus/prometheus_url_up.png?raw=true "Prometheus url up")
+![prometheus response ms](/screenshots/prometheus/prometheus_response_ms.png?raw=true "Prometheus response ms")
+![prometheus response ms sum](/screenshots/prometheus/prometheus_response_ms_sum.png?raw=true "Prometheus response ms sum")
+![prometheus response count](/screenshots/prometheus/prometheus_response_ms_count.png?raw=true "Prometheus response count")
+![prometheus response bucket](/screenshots/prometheus/prometheus_response_ms_bucket.png?raw=true "Prometheus response bucket")
+
+### Grafana server
+![grafana all](/screenshots/grafana/grafana_all.png?raw=true "Grafana all")
+![grafana url up](/screenshots/grafana/grafana_url_up.png?raw=true "Grafana url up")
+![grafana response ms](/screenshots/grafana/grafana_response_ms.png?raw=true "Grafana response ms")
+![grafana response ms bucket](/screenshots/grafana/grafana_response_ms_bucket.png?raw=true "Grafana response ms bucket")
