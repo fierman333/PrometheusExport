@@ -1,7 +1,18 @@
 # PrometheusExport
 Prometheus Export HTTPS status
 
-## Run app service locally
+## Local development
+### Install app dependencies
+```
+pip3 install --user -r requirements.txt
+```
+
+### Run unit tests
+```
+python3 tests/test.py
+```
+
+### Run app service
 ```
 uwsgi --http 127.0.0.1:8000 --wsgi-file app.py --callable app_dispatch
 ```
