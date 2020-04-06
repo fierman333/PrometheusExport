@@ -1,7 +1,13 @@
 # PrometheusExport
 Prometheus Export HTTPS status
 
+> Export HTTP(S) endpoints status and response time metrics to prometheus
+
 ## Local development
+### Prerequisites
+- python3
+- pip3
+
 ### Install app dependencies
 ```
 pip3 install --user -r requirements.txt
@@ -24,7 +30,9 @@ make docker_build
 
 ## Push docker image (only as developer of this service)
 ### Login to docker repository
+```
 docker login -u $user
+```
 
 ### Push docker image to logged docker repository
 ```
